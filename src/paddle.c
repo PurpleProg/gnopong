@@ -36,7 +36,7 @@ void move_paddle(paddle_t *paddle)
     {paddle->x = (GFX_LCD_WIDTH - paddle->width);}
 }
 
-void render_paddle(paddle_t paddle)
+void render_paddle(paddle_t *paddle)
 {
     static int oldX = PADDLE_START_X;
     static int oldY = PADDLE_START_Y;
@@ -45,11 +45,11 @@ void render_paddle(paddle_t paddle)
     gfx_Sprite(behind_paddle_sprite, oldX, oldY);
 
     /* get the new behind sprite */
-    gfx_GetSprite(behind_paddle_sprite, paddle.x, paddle.y);
+    gfx_GetSprite(behind_paddle_sprite, paddle->x, paddle->y);
 
     /* render the sprite */
-    gfx_Sprite(paddle.sprite, paddle.x, paddle.y);
+    gfx_Sprite(paddle->sprite, paddle->x, paddle->y);
 
-    oldX = paddle.x;
-    oldY = paddle.y;
+    oldX = paddle->x;
+    oldY = paddle->y;
 }

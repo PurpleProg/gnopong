@@ -22,7 +22,7 @@ int main(void)
         paddle_1_width,
         paddle_1_height,
         paddle_1,
-        4,   // speed
+        3,   // speed
     };
 
     /* create ball */
@@ -33,17 +33,17 @@ int main(void)
         ball_sprite_width,
         ball_sprite_height,
         ball_sprite,
-        4,
+        3,
         dir, // direction
     };
 
     do {  // mainloop
         // updates
-        move_ball(&ball);
+        move_ball(&ball, &paddle);
         move_paddle(&paddle);
 
         // render
-        render_paddle(paddle);
+        render_paddle(&paddle);
         render_ball(&ball);
         gfx_BlitBuffer();
 

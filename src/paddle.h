@@ -23,7 +23,7 @@ typedef struct
 
 void init_paddle(void);
 void move_paddle(paddle_t *paddle);
-void render_paddle(paddle_t);
+void render_paddle(paddle_t *paddle);
 
 
 # endif

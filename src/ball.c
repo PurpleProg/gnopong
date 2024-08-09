@@ -1,7 +1,9 @@
 #include <graphx.h>
 #include <keypadc.h>
 #include "ball.h"
-// #include <math.h>
+#include "paddle.h"
+#define PI 3.1415926535
+#include <math.h>
 
 
 /* allocate bg sprite */
@@ -15,26 +17,23 @@ void init_ball(void)
 }
 
 
-void move_ball(ball_t *ball)
+void move_ball(ball_t *ball, paddle_t *paddle)
 {
     // move it
     ball->x += ball->speed * ball->direction.x;
     ball->y += ball->speed * ball->direction.y;
 
-    // check collisions
+    // check collision with the paddle
+    if (gfx_CheckRectangleHotspot(ball->x, ball->y, ball->width, ball->height, paddle->x, paddle->y, paddle->width, paddle->height))
+    {
+        ball->direction.y = -1;
+    }
+
+    // check collisions whith walls
     if (ball->x < 0) {ball->x = 0; ball->direction.x *= -1;}
     if ((ball->x + ball->width) > GFX_LCD_WIDTH) {ball->x = (GFX_LCD_WIDTH - ball->width); ball->direction.x *= -1;}
     if (ball->y < 0) {ball->y = 0; ball->direction.y *= -1;}
     if ((ball->y + ball->height) > GFX_LCD_HEIGHT) {ball->y = (GFX_LCD_HEIGHT - ball->height); ball->direction.y *= -1;}
-
-    // normalize the vector
-    // stop the ball idk why
-    // float vector_lenght = sqrt(ball->direction.x * ball->direction.x + ball->direction.y * ball->direction.y);
-    // if (vector_lenght > 0.0)
-    // {
-    //     ball->direction.x /= vector_lenght;
-    //     ball->direction.y /= vector_lenght;
-    // }
 }
 
 void render_ball(ball_t *ball)

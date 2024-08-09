@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <graphx.h>
 #include "gfx/gfx.h"
+#include "paddle.h"
 
 
 #define BALL_START_X ((GFX_LCD_WIDTH - ball_sprite_width) / 2)
@@ -30,7 +31,7 @@ typedef struct
 
 
 void init_ball(void);
-void move_ball(ball_t *ball);
+void move_ball(ball_t *ball, paddle_t *paddle);
 void render_ball(ball_t *ball);
 
 
