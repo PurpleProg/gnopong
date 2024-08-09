@@ -7,8 +7,7 @@ extern "C" {
 
 #include "global_palette.h"
 #define sprites_palette_offset 0
-#include "ubuntu.h"
-#include "oiram.h"
+#include "paddle.h"
 
 #ifdef __cplusplus
 }
