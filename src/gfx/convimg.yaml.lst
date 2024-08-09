@@ -1,5 +1,7 @@
 global_palette.h
 global_palette.c
-paddle.h
-paddle.c
+paddle_1.h
+paddle_1.c
+ball_sprite.h
+ball_sprite.c
 gfx.h

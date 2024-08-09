@@ -2,21 +2,28 @@
 #define paddle_H
 
 #include <stdint.h>
-#include "defines.h"
+#include <graphx.h>
+#include "gfx/gfx.h"
 
 
-void move_paddle(void);
-void render_paddle(void);
+#define PADDLE_START_X ((GFX_LCD_WIDTH - paddle_1_width) / 2)
+#define PADDLE_START_Y  GFX_LCD_HEIGHT - (paddle_1_height * 2)
 
-typedef struct {
+
+typedef struct
+{
     int x;
     int y;
     const uint8_t width;
     const uint8_t height;
-    // hitbox_t hitbox;
+    gfx_sprite_t *sprite;
+    const uint8_t speed;
 } paddle_t;
 
-extern paddle_t paddle;
+
+void init_paddle(void);
+void move_paddle(paddle_t *paddle);
+void render_paddle(paddle_t);
 
 
 # endif

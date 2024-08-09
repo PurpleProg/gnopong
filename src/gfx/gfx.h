@@ -7,7 +7,8 @@ extern "C" {
 
 #include "global_palette.h"
 #define sprites_palette_offset 0
-#include "paddle.h"
+#include "paddle_1.h"
+#include "ball_sprite.h"
 
 #ifdef __cplusplus
 }

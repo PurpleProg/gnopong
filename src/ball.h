@@ -2,21 +2,36 @@
 #define ball_H
 
 #include <stdint.h>
+#include <graphx.h>
+#include "gfx/gfx.h"
 
 
-void move_ball(void);
-void render_ball(void);
+#define BALL_START_X ((GFX_LCD_WIDTH - ball_sprite_width) / 2)
+#define BALL_START_Y  GFX_LCD_HEIGHT - (ball_sprite_height * 4)
+
+
+typedef struct
+{
+    int8_t x;
+    int8_t y;
+} vector_t;
 
 
 typedef struct
 {
     int x;
     int y;
-    uint8_t width;
-    uint8_t height;
+    const uint8_t width;
+    const uint8_t height;
+    gfx_sprite_t *sprite;
+    uint8_t speed;
+    vector_t direction;
 } ball_t;
 
-extern ball_t ball;
+
+void init_ball(void);
+void move_ball(ball_t *ball);
+void render_ball(ball_t *ball);
 
 
 #endif
