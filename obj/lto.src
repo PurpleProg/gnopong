@@ -1,0 +1,285 @@
+	section	.text,"ax",@progbits
+	assume	adl = 1
+	section	.text,"ax",@progbits
+	public	_main
+_main:
+	ld	hl, -12
+	call	__frameset
+	ld	hl, 152
+	ld	(ix - 3), hl
+	ld	hl, 106
+	ld	(ix - 6), hl
+	ld	hl, (_background)
+	ld	(hl), 16
+	ld	iy, (_background)
+	ld	(iy + 1), 27
+	call	_gfx_Begin
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, 272
+	push	hl
+	ld	hl, _global_palette
+	push	hl
+	call	_gfx_SetPalette
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	call	_gfx_FillScreen
+	pop	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_SetTransparentColor
+	pop	hl
+	ld	hl, 1
+	push	hl
+	call	_gfx_SetDraw
+	ld	hl, 6
+	pop	de
+BB0_1:
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	jr	z, BB0_3
+	ld	(ix - 9), hl
+	call	_random
+	ld	bc, 289
+	call	__iremu
+	ld	(ix - 12), hl
+	call	_random
+	ld	bc, 209
+	call	__iremu
+	push	hl
+	ld	hl, (ix - 12)
+	push	hl
+	ld	hl, _ubuntu_data
+	push	hl
+	call	_gfx_Sprite_NoClip
+	ld	hl, (ix - 9)
+	pop	de
+	pop	de
+	pop	de
+	dec	hl
+	jr	BB0_1
+BB0_3:
+	ld	hl, (_background)
+	ld	de, 106
+	push	de
+	ld	de, 152
+	push	de
+	push	hl
+	call	_gfx_GetSprite
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 106
+	push	hl
+	ld	hl, 152
+	push	hl
+	call	_DrawSprite
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	call	_gfx_Blit
+	pop	hl
+BB0_4:
+	call	_kb_Scan
+	ld	hl, -720866
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	iyl, e
+	ld	iyh, d
+	pop	de
+	ld	a, iyl
+	or	a, a
+	jr	z, BB0_14
+	ld	a, iyl
+	ld	de, (ix - 3)
+	push	de
+	pop	hl
+	ld	bc, 2
+	add	hl, bc
+	bit	2, a
+	jr	z, BB0_7
+	ex	de, hl
+BB0_7:
+	ld	a, iyl
+	push	de
+	pop	hl
+	push	de
+	pop	bc
+	ld	de, -2
+	add	hl, de
+	ex	de, hl
+	push	bc
+	pop	hl
+	bit	1, a
+	jr	z, BB0_9
+	ex	de, hl
+BB0_9:
+	ld	(ix - 3), hl
+	ex	de, hl
+	ld	e, iyl
+	ld	d, iyh
+	ex	de, hl
+	ld.sis	bc, 1
+	call	__sand
+	ld	(ix - 9), hl
+	ld	bc, (ix - 6)
+	push	bc
+	pop	hl
+	ld	de, 2
+	add	hl, de
+	ld	de, (ix - 9)
+	bit	0, e
+	jr	z, BB0_11
+	push	hl
+	pop	bc
+BB0_11:
+	ld	a, iyl
+	push	bc
+	pop	hl
+	ld	de, -2
+	add	hl, de
+	bit	3, a
+	ld	de, (ix - 3)
+	jr	z, BB0_13
+	push	hl
+	pop	bc
+BB0_13:
+	ld	(ix - 6), bc
+	push	bc
+	push	de
+	call	_DrawSprite
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	call	_gfx_Blit
+	pop	hl
+BB0_14:
+	ld	hl, -720868
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	cp	a, 64
+	jp	nz, BB0_4
+	call	_gfx_End
+	or	a, a
+	sbc	hl, hl
+	ld	sp, ix
+	pop	ix
+	ret
+	section	.text,"ax",@progbits
+
+	section	.text,"ax",@progbits
+	public	_DrawSprite
+_DrawSprite:
+	call	__frameset0
+	ld	hl, (_background)
+	ld	de, (_DrawSprite.oldX)
+	ld	bc, (_DrawSprite.oldY)
+	push	bc
+	push	de
+	push	hl
+	call	_gfx_Sprite
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (_background)
+	ld	de, (ix + 9)
+	push	de
+	ld	de, (ix + 6)
+	push	de
+	push	hl
+	call	_gfx_GetSprite
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix + 9)
+	push	hl
+	ld	hl, (ix + 6)
+	push	hl
+	ld	hl, _oiram_data
+	push	hl
+	call	_gfx_TransparentSprite
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix + 6)
+	ld	(_DrawSprite.oldX), hl
+	ld	hl, (ix + 9)
+	ld	(_DrawSprite.oldY), hl
+	pop	ix
+	ret
+	section	.text,"ax",@progbits
+
+	section	.bss,"aw",@nobits
+	public	_background_data
+_background_data:
+	rb	434
+
+	section	.data,"aw",@progbits
+	public	_background
+_background:
+	dl	_background_data
+
+	section	.data,"aw",@progbits
+	public	_global_palette
+_global_palette:
+	db	"|ÿÿ", 0, 0, "!!2—2€\€]", 0, "h", 0, "èè!è""èBhBèCèchl¥ìÆlÆìmí	í)mJmkmnˆnnğîhïlñŒqŒñ­q­ñïq1vRvRörvsv”v”öÖv y ù!ùByBùcydù…ù¦ùÈùèyéù+zMznznúoúzz±z²úÒzÓúózôú÷ú{û8{9ûZ{Zû{{{û›{ ~ ş!şA~B~‡~‡ş¨~©şªşË~Ìşì~í~ÿÿ162ÿ3ÿ7ÿSWTÿUÿXÿuyvÿwÿzÿ—š™ÿ›ÿœÿº»¼½ºÿ»ÿ¼ÿÛÜİŞİÿŞÿşÿşÿ"
+
+	section	.data,"aw",@progbits
+	public	_ubuntu_data
+_ubuntu_data:
+	db	"  †.(O		HtGBAE~N				e6/////aL				€v1/////<			.gV€>/////1o‚(&IkRR]4/561/2Eƒ…rB}TRRRur…h://1//D[RRRR`E////2~}RRRRX…C////AkRRRRx7///6ƒC=j_RRYF////~8///cƒTRb~@???vo////9WRir////:WRd,,--z;//1m€TR\.				wcDv…ZRRTƒ", 26, "			†uRRRR^H				%WRRRRfL			", 10, "MqRRRRn„'				#_RRY†""$", 13, "				…]Rx)						)…PPq{					K…f`q+						![RRRkP)""J}RRRRW€RRRRX_RRRppdx"
+
+	section	.data,"aw",@progbits
+	private	_DrawSprite.oldX
+_DrawSprite.oldX:
+	dl	152
+
+	section	.data,"aw",@progbits
+	private	_DrawSprite.oldY
+_DrawSprite.oldY:
+	dl	106
+
+	section	.data,"aw",@progbits
+	public	_oiram_data
+_oiram_data:
+	db	"", 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, "", 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, "", 0, 0, "", 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, " ", 0, 0, 0, 0, 0, 0, 0, 0, 0, " ", 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0
+
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	extern	_random
+	extern	_gfx_FillScreen
+	extern	_gfx_Blit
+	extern	__frameset
+	extern	_gfx_SetTransparentColor
+	extern	__iremu
+	extern	_gfx_Begin
+	extern	__Unwind_SjLj_Register
+	extern	_kb_Scan
+	extern	_gfx_Sprite
+	extern	_gfx_SetPalette
+	extern	__Unwind_SjLj_Unregister
+	extern	_gfx_GetSprite
+	extern	_gfx_Sprite_NoClip
+	extern	_gfx_End
+	extern	__sand
+	extern	_gfx_TransparentSprite
+	extern	__frameset0
+	extern	_gfx_SetDraw
