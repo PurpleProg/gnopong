@@ -38,8 +38,8 @@ void move_ball(ball_t *ball, paddle_t *paddle)
 
 void render_ball(ball_t *ball)
 {
-    static int oldX = BALL_START_X;
-    static int oldY = BALL_START_Y;
+    static uint24_t oldX = BALL_START_X;
+    static uint24_t oldY = BALL_START_Y;
 
     /* erase old sprite */
     gfx_Sprite(behind_ball_sprite, oldX, oldY);
@@ -48,7 +48,7 @@ void render_ball(ball_t *ball)
     gfx_GetSprite(behind_ball_sprite, ball->x, ball->y);
 
     /* render the new sprite*/
-    gfx_Sprite(ball->sprite, ball->x, ball->y);
+    gfx_TransparentSprite(ball->sprite, ball->x, ball->y);
 
     oldX = ball->x;
     oldY = ball->y;

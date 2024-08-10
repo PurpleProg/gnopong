@@ -38,14 +38,14 @@ void move_paddle(paddle_t *paddle)
 
 void render_paddle(paddle_t *paddle)
 {
-    static int oldX = PADDLE_START_X;
-    static int oldY = PADDLE_START_Y;
+    static uint24_t oldX = PADDLE_START_X;
+    static uint24_t oldY = PADDLE_START_Y;
 
     /* render the background */
     gfx_Sprite(behind_paddle_sprite, oldX, oldY);
 
     /* get the new behind sprite */
-    gfx_GetSprite(behind_paddle_sprite, paddle->x, paddle->y);
+    // gfx_GetSprite(behind_paddle_sprite, paddle->x, paddle->y);
 
     /* render the sprite */
     gfx_Sprite(paddle->sprite, paddle->x, paddle->y);

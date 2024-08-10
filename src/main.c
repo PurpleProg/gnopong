@@ -5,15 +5,23 @@
 #include "ball.h"
 
 
+/*
+/!\ CAREFULL the tiles are drawn using gfx_FillRectangle_NoClip,
+so TILE_WIDHT * MAP_ROWS should NEVER be greater than GFX_LCD_WIDTH ( =339 )
+*/
+#define TILE_WIDTH 32
+#define TILE_HEIGHT 32
+#define MAP_ROWS 7
+#define MAP_COLUMNS 10
+
+
 void init_game(void);
-void quit_game(void);
+void render_map(bool (*map)[7][10]);
 
 
 int main(void)
 {
     init_game();
-
-    init_ball();
 
     /* create paddle */
     paddle_t paddle = {
@@ -37,21 +45,51 @@ int main(void)
         dir, // direction
     };
 
+    /*
+    init the map
+    width : 10*32 = 320
+    height : 7*32 = 224, score on a 16 offset
+     */
+    bool map[MAP_ROWS][MAP_COLUMNS] = {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
     do {  // mainloop
         // updates
-        move_ball(&ball, &paddle);
         move_paddle(&paddle);
+        move_ball(&ball, &paddle);  // change map
 
         // render
+        render_map(&map);
         render_paddle(&paddle);
         render_ball(&ball);
+
         gfx_BlitBuffer();
 
     } while (kb_Data[6] != kb_Clear);
 
-    quit_game();
-
+    gfx_End();
     return 0;
+}
+
+
+void render_map(bool (*map)[MAP_ROWS][MAP_COLUMNS])
+{
+    for (uint8_t row = 0; row < MAP_ROWS; row++)
+    {
+        for (uint8_t column = 0; column < MAP_COLUMNS; column++)
+        {
+            if ((*map)[row][column] == 1) {gfx_SetColor(1);}
+            else {gfx_SetColor(0);}
+            gfx_FillRectangle_NoClip(column * TILE_WIDTH, row * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+        }
+    }
 }
 
 
@@ -59,15 +97,12 @@ int main(void)
 void init_game(void)
 {
     gfx_Begin();
-    gfx_SetDrawBuffer();
+
     gfx_SetPalette(global_palette, sizeof_global_palette, 0);
-    gfx_ZeroScreen();
+    gfx_SetTransparentColor(0);  // black
+    gfx_SetDrawBuffer();
+    gfx_FillScreen(0);  // black
+
     init_paddle();
-}
-
-
-/* put the LCD back in normal moder */
-void quit_game(void)
-{
-    gfx_End();
+    init_ball();
 }
