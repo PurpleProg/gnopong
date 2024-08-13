@@ -59,8 +59,8 @@ int main(void)
     // mainloop
     do {
         // updates
-        move_white_ball(&ball_white, &map);  // change map
-        move_black_ball(&ball_black, &map);  // change map
+        move_ball(&ball_white, &map);  // change map
+        move_ball(&ball_black, &map);  // change map
 
         // render
         render_map(&map);
