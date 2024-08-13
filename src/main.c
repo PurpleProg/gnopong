@@ -99,10 +99,8 @@ void init_game(void)
     gfx_Begin();
 
     gfx_SetPalette(global_palette, sizeof_global_palette, 0);
-    // gfx_SetTransparentColor(0);  // black
     gfx_SetDrawBuffer();
     gfx_FillScreen(0);  // black
 
     init_paddle();
-    // init_ball();
 }

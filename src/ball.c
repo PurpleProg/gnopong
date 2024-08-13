@@ -6,17 +6,6 @@
 #include "map.h"
 
 
-/* allocate bg sprite */
-// gfx_UninitedSprite(behind_ball_sprite, ball_sprite_white_width, ball_sprite_white_height);
-
-
-// void init_ball(void)
-// {
-//     behind_ball_sprite->width = ball_sprite_white_width;
-//     behind_ball_sprite->height = ball_sprite_white_height;
-// }
-
-
 // move the white ball and handle the collisions
 void move_white_ball(ball_t *ball, paddle_t *paddle, bool (*map)[MAP_ROWS][MAP_COLUMNS]) {
     // move it
@@ -36,7 +25,7 @@ void move_white_ball(ball_t *ball, paddle_t *paddle, bool (*map)[MAP_ROWS][MAP_C
             int24_t tile_y = row * TILE_HEIGHT;
             if ((*map)[row][column] && gfx_CheckRectangleHotspot(ball->x, ball->y, ball->width, ball->height, tile_x, tile_y, TILE_WIDTH, TILE_HEIGHT)) {
                 collided = true;
-                // (*map)[row][column] = 0;
+                (*map)[row][column] = 0;
 
 
                 // get relative posision
@@ -91,7 +80,7 @@ void move_black_ball(ball_t *ball, bool (*map)[MAP_ROWS][MAP_COLUMNS]) {
             int24_t tile_y = row * TILE_HEIGHT;
             if (!((*map)[row][column]) && gfx_CheckRectangleHotspot(ball->x, ball->y, ball->width, ball->height, tile_x, tile_y, TILE_WIDTH, TILE_HEIGHT)) {
                 collided = false;
-                // (*map)[row][column] = 1;
+                (*map)[row][column] = 1;
 
 
                 // get relative posision
@@ -134,26 +123,5 @@ void move_black_ball(ball_t *ball, bool (*map)[MAP_ROWS][MAP_COLUMNS]) {
 
 void render_ball(ball_t *ball)
 {
-    // static uint24_t oldX = ball->x;
-    // static uint24_t oldY = ball->y;
-    // if (ball->color) {
-    //     oldX = BALL_WHITE_START_X;
-    //     oldY = BALL_WHITE_START_Y;
-    // } else {
-    //     oldX = BALL_BLACK_START_X;
-    //     oldY = BALL_BLACK_START_Y;
-    // }
-
-    /* erase old sprite */
-    // gfx_Sprite(behind_ball_sprite, oldX, oldY);
-
-    /* get new behind sprite */
-    // gfx_GetSprite(behind_ball_sprite, ball->x, ball->y);
-
-    /* render the new sprite*/
-    // gfx_TransparentSprite(ball->sprite, ball->x, ball->y);
     gfx_Sprite(ball->sprite, ball->x, ball->y);
-
-    // oldX = ball->x;
-    // oldY = ball->y;
 }
