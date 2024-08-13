@@ -4,8 +4,9 @@ a pong-like game for the TI-84 Plus CE / TI-83 Premium CE
 
 this game is ~~copied~~ inspired form [Yin-Yang Ping Pong](https://store.steampowered.com/app/3117780/YinYang_PingPong/) by [Nine Finger Games](https://store.steampowered.com/curator/44190983)
 
-> [!CAUTION]
-> insert screenshots here
+
+![exemple_screenshot](https://raw.githubusercontent.com/purpleprog/gnopong/main/exemple.png)
+
 
 ## How to install this game on your calculator ?
 or any other game btw
