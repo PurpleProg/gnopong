@@ -3,16 +3,7 @@
 #include "gfx/gfx.h"
 #include "paddle.h"
 #include "ball.h"
-
-
-/*
-/!\ CAREFULL the tiles are drawn using gfx_FillRectangle_NoClip,
-so TILE_WIDHT * MAP_ROWS should NEVER be greater than GFX_LCD_WIDTH ( =339 )
-*/
-#define TILE_WIDTH 32
-#define TILE_HEIGHT 32
-#define MAP_ROWS 7
-#define MAP_COLUMNS 10
+#include "map.h"
 
 
 void init_game(void);
@@ -50,11 +41,20 @@ int main(void)
     width : 10*32 = 320
     height : 7*32 = 224, score on a 16 offset
      */
+    // bool map[MAP_ROWS][MAP_COLUMNS] = {
+    //     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    //     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    //     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    //     {1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+    //     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    //     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    //     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    // };
     bool map[MAP_ROWS][MAP_COLUMNS] = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+        {1, 1, 1, 1, 1, 0, 0, 0, 0, 0},
+        {1, 1, 1, 1, 1, 0, 0, 0, 0, 0},
+        {1, 1, 1, 1, 1, 0, 0, 0, 0, 0},
+        {1, 0, 1, 0, 1, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -63,7 +63,7 @@ int main(void)
     do {  // mainloop
         // updates
         move_paddle(&paddle);
-        move_ball(&ball, &paddle);  // change map
+        move_ball(&ball, &paddle, &map);  // change map
 
         // render
         render_map(&map);
@@ -76,20 +76,6 @@ int main(void)
 
     gfx_End();
     return 0;
-}
-
-
-void render_map(bool (*map)[MAP_ROWS][MAP_COLUMNS])
-{
-    for (uint8_t row = 0; row < MAP_ROWS; row++)
-    {
-        for (uint8_t column = 0; column < MAP_COLUMNS; column++)
-        {
-            if ((*map)[row][column] == 1) {gfx_SetColor(1);}
-            else {gfx_SetColor(0);}
-            gfx_FillRectangle_NoClip(column * TILE_WIDTH, row * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-        }
-    }
 }
 
 

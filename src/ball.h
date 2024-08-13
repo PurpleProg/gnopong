@@ -5,11 +5,11 @@
 #include <graphx.h>
 #include "gfx/gfx.h"
 #include "paddle.h"
+#include "map.h"
 
 
 #define BALL_START_X ((GFX_LCD_WIDTH - ball_sprite_width) / 2)
 #define BALL_START_Y  GFX_LCD_HEIGHT - (ball_sprite_height * 4)
-
 
 typedef struct
 {
@@ -31,7 +31,7 @@ typedef struct
 
 
 void init_ball(void);
-void move_ball(ball_t *ball, paddle_t *paddle);
+void move_ball(ball_t *ball, paddle_t *paddle, bool (*map)[MAP_ROWS][MAP_COLUMNS]);
 void render_ball(ball_t *ball);
 
 
