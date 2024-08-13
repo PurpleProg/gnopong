@@ -6,8 +6,8 @@
 #include "gfx/gfx.h"
 
 
-#define PADDLE_START_X ((GFX_LCD_WIDTH - paddle_1_width) / 2)
-#define PADDLE_START_Y  GFX_LCD_HEIGHT - (paddle_1_height * 2)
+#define PADDLE_START_X ((GFX_LCD_WIDTH - paddle_sprite_width) / 2)
+#define PADDLE_START_Y  GFX_LCD_HEIGHT - (paddle_sprite_height * 2)
 
 
 typedef struct

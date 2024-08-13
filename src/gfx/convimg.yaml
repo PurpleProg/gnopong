@@ -5,15 +5,17 @@ palettes:
       - color: {index: 1, r: 255, g: 255, b: 255}
       - color: {index: 2, r: 255, g: 0, b: 0}
     images:
-      - paddle_1.png
-      - ball_sprite.png
+      - paddle_sprite.png
+      - ball_sprite_white.png
+      - ball_sprite_black.png
 
 converts:
   - name: sprites
     palette: global_palette
     images:
-      - paddle_1.png
-      - ball_sprite.png
+      - paddle_sprite.png
+      - ball_sprite_white.png
+      - ball_sprite_black.png
 
 outputs:
   - type: c

@@ -4,13 +4,13 @@
 
 
 /* allocate bg sprite */
-gfx_UninitedSprite(behind_paddle_sprite, paddle_1_width, paddle_1_height);
+gfx_UninitedSprite(behind_paddle_sprite, paddle_sprite_width, paddle_sprite_height);
 
 
 void init_paddle(void)
 {
-    behind_paddle_sprite->width = paddle_1_width;
-    behind_paddle_sprite->height = paddle_1_height;
+    behind_paddle_sprite->width = paddle_sprite_width;
+    behind_paddle_sprite->height = paddle_sprite_height;
 }
 
 void move_paddle(paddle_t *paddle)

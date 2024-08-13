@@ -53,5 +53,5 @@ unsigned char global_palette[108] =
     0x0c, 0x78, /*  50: rgb(247,   0,  99) */
     0x0b, 0x7c, /*  51: rgb(255,   0,  90) */
     0x0c, 0x7c, /*  52: rgb(255,   0,  99) */
-    0xe0, 0xff, /*  53: rgb(255, 255,   0) */
+    0xfd, 0xff, /*  53: rgb(255, 255, 239) */
 };
