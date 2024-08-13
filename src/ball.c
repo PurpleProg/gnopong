@@ -2,20 +2,15 @@
 #include <graphx.h>
 #include <keypadc.h>
 #include "ball.h"
-#include "paddle.h"
 #include "map.h"
 
 
 // move the white ball and handle the collisions
-void move_white_ball(ball_t *ball, paddle_t *paddle, bool (*map)[MAP_ROWS][MAP_COLUMNS]) {
+void move_white_ball(ball_t *ball, bool (*map)[MAP_ROWS][MAP_COLUMNS]) {
     // move it
     ball->x += ball->speed * ball->direction.x;
     ball->y += ball->speed * ball->direction.y;
 
-    // check collision with the paddle
-    if (gfx_CheckRectangleHotspot(ball->x, ball->y, ball->width, ball->height, paddle->x, paddle->y, paddle->width, paddle->height)) {
-        ball->direction.y = -1;
-    }
 
     // check collision with the map
     bool collided = false;
@@ -73,14 +68,12 @@ void move_black_ball(ball_t *ball, bool (*map)[MAP_ROWS][MAP_COLUMNS]) {
     ball->y += ball->speed * ball->direction.y;
 
     // check collision with the map
-    bool collided = true;
-    for (uint8_t row = 0; ((row < MAP_ROWS) && collided); row++) {
-        for (uint8_t column = 0; ((column < MAP_COLUMNS) && collided); column++) {
+    for (uint8_t row = 0; ((row < MAP_ROWS)); row++) {
+        for (uint8_t column = 0; (column < MAP_COLUMNS); column++) {
             int24_t tile_x = column * TILE_WIDTH;
             int24_t tile_y = row * TILE_HEIGHT;
             if (!((*map)[row][column]) && gfx_CheckRectangleHotspot(ball->x, ball->y, ball->width, ball->height, tile_x, tile_y, TILE_WIDTH, TILE_HEIGHT)) {
-                collided = false;
-                (*map)[row][column] = 1;
+                (*map)[row][column] = !ball->color;
 
 
                 // get relative posision
