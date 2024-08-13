@@ -1,6 +1,3 @@
-> [!CAUTION]
-> This game is not finished yet.  >:(
-
 # Gnopong
 
 a pong-like game for the TI-84 Plus CE / TI-83 Premium CE
@@ -12,8 +9,6 @@ this game is ~~copied~~ inspired form [Yin-Yang Ping Pong](https://store.steampo
 
 ## How to install this game on your calculator ?
 or any other game btw
-> [!WARNING]
-> this game is not realesed yet !
 
 ### 1 - The setup
 > [!IMPORTANT]
