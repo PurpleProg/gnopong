@@ -68,7 +68,7 @@ int main(void)
         render_ball(&ball_black);
 
         gfx_BlitBuffer();
-
+        kb_Scan();
     } while (kb_Data[6] != kb_Clear);
 
     gfx_End();
